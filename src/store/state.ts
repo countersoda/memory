@@ -12,7 +12,9 @@ export const useBoardStore = defineStore("board", {
     create() {
       const values: number[] = [];
       for (let i = 0; i < this.amount; i++) {
-        values.push(Math.floor(Math.random() * 100));
+        const value = Math.floor(Math.random() * 100);
+        values.push(value);
+        values.push(value);
       }
       this.symbols = values;
     },
