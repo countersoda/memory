@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="items-center flex flex-col">
     <h1>{{ amount }} Pair{{ amount != 1 ? "s" : "" }}</h1>
@@ -9,10 +8,8 @@
       <button class="border p-2 rounded-md" v-on:click="create">Create</button>
       <button class="border p-2 rounded-md" v-on:click="reset">Reset</button>
     </div>
-    <div class="board">
-      <div v-for="symbol in symbols" :key="symbol">
-        <div>{{ symbol }}</div>
-      </div>
+    <div class="board" v-for="symbol in symbols" :key="symbol">
+      <div>{{ symbol }}</div>
     </div>
   </div>
 </template>
