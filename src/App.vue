@@ -1,18 +1,14 @@
 <template>
-  <HelloWorld msg="Welcome" />
-  <h1 class="text-3xl font-bold underline text-yellow-300">
-    Throw out the kikes
-  </h1>
+  <Board />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
-
+import Board from "./components/Board.vue";
 export default defineComponent({
   name: "App",
   components: {
-    HelloWorld,
+    Board,
   },
 });
 </script>
