@@ -15,9 +15,13 @@
       <div v-for="card in cards" :key="card.key">
         <button
           class="border p-2 w-10 h-10 rounded-md"
-          v-on:click="reveal(card.key)"
+          v-on:click="() => reveal(card.key)"
         >
-          {{ revealedCards.includes(card) ? card.symbol : " " }}
+          {{
+            revealedCards.includes(card) || foundCards.includes(card)
+              ? card.symbol
+              : " "
+          }}
         </button>
       </div>
     </div>
@@ -29,5 +33,5 @@ import { storeToRefs } from "pinia";
 import { useBoardStore } from "../store/state";
 const board = useBoardStore();
 const { increment, create, reset, reveal } = board;
-const { amount, cards, revealedCards } = storeToRefs(board);
+const { amount, cards, revealedCards, foundCards } = storeToRefs(board);
 </script>
