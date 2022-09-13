@@ -24,8 +24,11 @@ export const useBoardStore = defineStore("board", {
     reset() {
       this.amount = 0;
       this.cards = [];
+      this.foundCards = []
+      this.revealedCards = []
     },
     async reveal(key: number) {
+      if (this.revealedCards.length === 2) return;
       for (const symbol of this.cards) {
         if (symbol.key === key && !this.revealedCards.includes(symbol)) {
           this.revealedCards.push(symbol)
