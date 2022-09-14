@@ -6,7 +6,7 @@ import { sleep } from "@/utils";
 
 export const useBoardStore = defineStore("board", {
   state: () => {
-    return { amount: ref<number>(5), cards: ref<Card[]>([]), revealedCards: ref<Card[]>([]), foundCards: ref<Card[]>([]) };
+    return { amount: ref<number>(9), cards: ref<Card[]>([]), revealedCards: ref<Card[]>([]), foundCards: ref<Card[]>([]), timestamp: ref<number>(0) };
   },
   actions: {
     create() {
@@ -17,9 +17,11 @@ export const useBoardStore = defineStore("board", {
         values.push(...[card, card])
       }
       this.cards = shuffle(values).map((card, i) => ({ ...card, key: i }));
+      this.timestamp = Date.now();
     },
     reset() {
-      this.amount = 5;
+      this.amount = 9;
+      this.timestamp = 0;
       this.cards = [];
       this.foundCards = []
       this.revealedCards = []

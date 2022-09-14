@@ -9,10 +9,11 @@
       <h1>Pair{{ amount != 1 ? "s" : "" }}</h1>
     </div>
     <div class="flex flex-col w-[10rem] gap-2">
-      <button class="border p-2 rounded-md" v-on:click="create">Play</button>
-      <button class="border p-2 rounded-md" v-on:click="reset">Reset</button>
+      <button class="border p-2 rounded-md" v-on:click="create">Start</button>
+      <button class="border p-2 rounded-md" v-on:click="reset">Clear</button>
     </div>
-    <div :class="boardSize(maxSize)">
+    <p>{{ startTime !== 0 ? timestamp : "" }}</p>
+    <div :class="boardSize()">
       <button
         class="border p-2 w-10 h-10 rounded-md items-center"
         v-for="card in cards"
@@ -35,16 +36,28 @@ import { ref } from "vue-demi";
 import { useBoardStore } from "../store/state";
 const board = useBoardStore();
 const { create, reset, reveal } = board;
-const { amount, cards, revealedCards, foundCards } = storeToRefs(board);
-let max = 0;
-for (let i = 1; i <= amount.value; i++) {
-  if (amount.value % i == 0 && max < i) {
-    max = i;
+const {
+  amount,
+  cards,
+  revealedCards,
+  foundCards,
+  timestamp: startTime,
+} = storeToRefs(board);
+const boardSize = ref(() => {
+  let n = 0;
+  for (let i = 1; i <= amount.value; i++) {
+    if (amount.value % i == 0 && n < i) {
+      n = i;
+    }
   }
+  return `w-[100%] grid grid-cols-[repeat(${6},minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2`;
+});
+const timestamp = ref(0);
+if (startTime) {
+  setInterval(() => {
+    timestamp.value = Math.floor(
+      ((Date.now() - startTime.value) / 24 / 60 / 60) * 100
+    );
+  }, 700);
 }
-const maxSize = ref(max);
-const boardSize = ref(
-  (n: number) =>
-    `w-[50%] grid grid-cols-[repeat(${n},minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2`
-);
 </script>
