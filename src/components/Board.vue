@@ -9,11 +9,14 @@
       <h1>Pair{{ amount != 1 ? "s" : "" }}</h1>
     </div>
     <div class="flex flex-col w-[10rem] gap-2">
-      <button class="border p-2 rounded-md" v-on:click="create">Start</button>
-      <button class="border p-2 rounded-md" v-on:click="reset">Clear</button>
+      <button class="primary-btn" v-on:click="create">Start</button>
+      <button class="primary-btn" v-on:click="reset">Clear</button>
+      <button class="primary-btn" v-on:click="exit">Exit</button>
     </div>
-    <p>{{ startTime !== 0 ? timestamp : "" }}</p>
-    <div :class="boardSize()">
+    <p>{{ currentTime !== 0 ? `${currentTime}s` : "" }}</p>
+    <div
+      class="w-[100%] grid grid-cols-[repeat(6,minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2"
+    >
       <button
         class="border p-2 w-10 h-10 rounded-md items-center"
         v-for="card in cards"
@@ -32,32 +35,20 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
-import { ref } from "vue-demi";
-import { useBoardStore } from "../store/state";
+import { useGameStore } from "../state/game";
+import { useBoardStore } from "../state/board";
+
+const game = useGameStore();
 const board = useBoardStore();
+const { exit } = game;
 const { create, reset, reveal } = board;
 const {
   amount,
   cards,
   revealedCards,
   foundCards,
-  timestamp: startTime,
+  startTime,
+  currentTime,
+  timerId,
 } = storeToRefs(board);
-const boardSize = ref(() => {
-  let n = 0;
-  for (let i = 1; i <= amount.value; i++) {
-    if (amount.value % i == 0 && n < i) {
-      n = i;
-    }
-  }
-  return `w-[100%] grid grid-cols-[repeat(${6},minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2`;
-});
-const timestamp = ref(0);
-if (startTime) {
-  setInterval(() => {
-    timestamp.value = Math.floor(
-      ((Date.now() - startTime.value) / 24 / 60 / 60) * 100
-    );
-  }, 700);
-}
 </script>

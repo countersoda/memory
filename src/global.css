@@ -9,3 +9,7 @@
       margin: 0;
     }
   }
+
+.primary-btn {
+  @apply border p-2 rounded-md
+}

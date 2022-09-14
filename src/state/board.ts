@@ -6,7 +6,15 @@ import { sleep } from "@/utils";
 
 export const useBoardStore = defineStore("board", {
   state: () => {
-    return { amount: ref<number>(9), cards: ref<Card[]>([]), revealedCards: ref<Card[]>([]), foundCards: ref<Card[]>([]), timestamp: ref<number>(0) };
+    return {
+      amount: ref<number>(9),
+      cards: ref<Card[]>([]),
+      revealedCards: ref<Card[]>([]),
+      foundCards: ref<Card[]>([]),
+      startTime: ref<number>(0),
+      currentTime: ref<number>(0),
+      timerId: ref<number | null>(null)
+    };
   },
   actions: {
     create() {
@@ -17,14 +25,20 @@ export const useBoardStore = defineStore("board", {
         values.push(...[card, card])
       }
       this.cards = shuffle(values).map((card, i) => ({ ...card, key: i }));
-      this.timestamp = Date.now();
+      this.startTime = Date.now();
+      this.timerId = setInterval(() => {
+        this.currentTime = Math.floor((Date.now() - this.startTime) / 1000);
+      }, 500);
     },
     reset() {
       this.amount = 9;
-      this.timestamp = 0;
+      this.startTime = 0;
+      this.currentTime = 0;
       this.cards = [];
       this.foundCards = []
       this.revealedCards = []
+      clearInterval(this.timerId!)
+      this.timerId = null;
     },
     async reveal(key: number) {
       if (this.revealedCards.length === 2) return;
@@ -42,6 +56,11 @@ export const useBoardStore = defineStore("board", {
           await sleep(500);
           this.revealedCards = [];
         }
+      }
+      if ((this.foundCards.length / 2) === this.amount) {
+        await sleep(500);
+        alert(`Finished! It took ${this.currentTime}s`)
+        this.reset()
       }
     }
   },
