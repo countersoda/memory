@@ -11,9 +11,10 @@ export const useBoardStore = defineStore("board", {
       cards: ref<Card[]>([]),
       revealedCards: ref<Card[]>([]),
       foundCards: ref<Card[]>([]),
-      startTime: ref<number>(0),
-      currentTime: ref<number>(0),
-      timerId: ref<number | null>(null)
+      startTime: ref<number>(0), // UNIX milliseconds
+      currentTime: ref<number>(0), // seconds
+      timerId: ref<number | null>(null),
+      finished: ref<boolean>(false)
     };
   },
   actions: {
@@ -58,8 +59,8 @@ export const useBoardStore = defineStore("board", {
         }
       }
       if ((this.foundCards.length / 2) === this.amount) {
-        await sleep(500);
         alert(`Finished! It took ${this.currentTime}s`)
+        await sleep(500);
         this.reset()
       }
     }

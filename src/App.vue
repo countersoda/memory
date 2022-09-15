@@ -1,6 +1,11 @@
 <template>
   <Board v-if="playing" />
-  <button class="primary-btn" v-else v-on:click="start">Play Game</button>
+  <div v-else class="h-full flex flex-col items-center gap-2 justify-center">
+    <button class="primary-btn w-[10rem]" v-on:click="start">Play Game</button>
+    <button class="primary-btn w-[10rem]" v-on:click="showHighscore">
+      Highscore
+    </button>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -14,13 +19,20 @@ const { playing } = storeToRefs(game);
 </script>
 
 <style>
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 #app {
+    width: 100%;
+  height: 100%;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: whitesmoke;
-  margin-top: 60px;
 }
 
 html body {
