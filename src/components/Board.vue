@@ -1,8 +1,12 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-center pb-[10rem]">
-      <p class="zoomOut text-bold text-lg pb-10" v-if="currentTime !== 0">
-        {{ currentTime }}s
-      </p>
+  <div
+    v-if="!finished"
+    class="h-full flex flex-col items-center justify-center pb-[10rem]"
+  >
+    <p class="zoomOut text-bold text-lg pb-10" v-if="currentTime !== 0">
+      {{ currentTime }}s
+    </p>
+    <p class="text-bold text-lg pb-10" v-else>Start the game!</p>
     <div class="flex flex-row gap-2 pb-5">
       <input
         class="text-black text-center w-14 rounded-sm outline-none"
@@ -12,22 +16,28 @@
       <h1>Pair{{ amount != 1 ? "s" : "" }}</h1>
     </div>
     <div class="flex flex-col w-[10rem] gap-2">
-      <button class="primary-btn" v-on:click="create">Start</button>
+      <button
+        class="primary-btn"
+        v-on:click="
+          reset();
+          create();
+        "
+      >
+        Start
+      </button>
       <button class="primary-btn" v-on:click="reset">Clear</button>
       <button
         class="primary-btn"
         v-on:click="
-          () => {
-            reset();
-            exit();
-          }
+          reset();
+          exit();
         "
       >
         Exit
       </button>
     </div>
     <div
-      class="w-[100%] grid grid-cols-[repeat(6,minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2"
+      class="w-[100%] grid grid-cols-[repeat(4,minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2"
     >
       <button
         class="border p-2 w-10 h-10 rounded-md items-center zoomOut hover:rotate"
@@ -43,12 +53,41 @@
       </button>
     </div>
   </div>
+  <div
+    v-else
+    class="h-full flex flex-col items-center justify-center pb-[10rem]"
+  >
+    <div class="border rounded-sm p-10 flex flex-col items-center">
+      <input
+        v-model="user"
+        class="text-black rounded-sm w-[10rem] mb-5 p-2"
+        placeholder="Enter name:"
+      />
+      <p>You needed {{ currentTime }}s to find {{ amount }} Pairs</p>
+      <button
+        class="mt-5 bg-white text-black w-[5rem] rounded-sm"
+        v-on:click="
+          save({ user, amount, time: currentTime });
+          reset();
+        "
+      >
+        Save
+      </button>
+      <button
+        class="mt-5 bg-white text-black w-[5rem] rounded-sm"
+        v-on:click="reset()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
 import { useGameStore } from "../state/game";
 import { useBoardStore } from "../state/board";
+import { ref } from "vue";
 
 const game = useGameStore();
 const board = useBoardStore();
@@ -62,5 +101,8 @@ const {
   startTime,
   currentTime,
   timerId,
+  finished,
 } = storeToRefs(board);
+
+const user = ref("");
 </script>

@@ -7,7 +7,7 @@ import { sleep } from "@/utils";
 export const useBoardStore = defineStore("board", {
   state: () => {
     return {
-      amount: ref<number>(9),
+      amount: ref<number>(4),
       cards: ref<Card[]>([]),
       revealedCards: ref<Card[]>([]),
       foundCards: ref<Card[]>([]),
@@ -35,7 +35,6 @@ export const useBoardStore = defineStore("board", {
       }, 500);
     },
     reset() {
-      this.amount = 9;
       this.startTime = 0;
       this.currentTime = 0;
       this.cards = [];
@@ -43,6 +42,7 @@ export const useBoardStore = defineStore("board", {
       this.revealedCards = []
       clearInterval(this.timerId);
       this.timerId = undefined;
+      this.finished = false;
     },
     async reveal(key: number) {
       if (this.revealedCards.length === 2) return;
@@ -62,9 +62,9 @@ export const useBoardStore = defineStore("board", {
         }
       }
       if ((this.foundCards.length / 2) === this.amount) {
-        alert(`Finished! It took ${this.currentTime}s`)
         await sleep(500);
-        this.reset()
+        this.finished = true;
+        clearInterval(this.timerId);
       }
     }
   },
