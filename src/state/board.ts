@@ -13,19 +13,22 @@ export const useBoardStore = defineStore("board", {
       foundCards: ref<Card[]>([]),
       startTime: ref<number>(0), // UNIX milliseconds
       currentTime: ref<number>(0), // seconds
-      timerId: ref<number | null>(null),
+      timerId: ref<number | undefined>(undefined),
       finished: ref<boolean>(false)
     };
   },
   actions: {
     create() {
-      const values: Card[] = [];
-      for (let i = 0; i < this.amount; i++) {
+      const values: number[] = [];
+      let i = 0;
+      while (i < this.amount) {
         const value = Math.floor(Math.random() * 100 + 1);
-        const card = { symbol: value, key: -1 }
-        values.push(...[card, card])
+        if (!values.includes(value)) {
+          values.push(...[value, value])
+          i++;
+        }
       }
-      this.cards = shuffle(values).map((card, i) => ({ ...card, key: i }));
+      this.cards = shuffle(values).map((value, i) => ({ symbol: value, key: i }));
       this.startTime = Date.now();
       this.timerId = setInterval(() => {
         this.currentTime = Math.floor((Date.now() - this.startTime) / 1000);
@@ -38,8 +41,8 @@ export const useBoardStore = defineStore("board", {
       this.cards = [];
       this.foundCards = []
       this.revealedCards = []
-      clearInterval(this.timerId!)
-      this.timerId = null;
+      clearInterval(this.timerId);
+      this.timerId = undefined;
     },
     async reveal(key: number) {
       if (this.revealedCards.length === 2) return;

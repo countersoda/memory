@@ -15,11 +15,24 @@
 }
 
 .rotate {
-  animation: rotate 15s infinite linear;
+  animation: 1s ease-out 0s rotate;
+}
+
+.zoomOut {
+  animation: 1s ease-out 0s zoomOut;
 }
 
 @keyframes rotate {
   100% {
     transform: rotateY(360deg);
+  }
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(100%);
   }
 }

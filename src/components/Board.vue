@@ -1,5 +1,8 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-center">
+  <div class="h-full flex flex-col items-center justify-center pb-[10rem]">
+      <p class="zoomOut text-bold text-lg pb-10" v-if="currentTime !== 0">
+        {{ currentTime }}s
+      </p>
     <div class="flex flex-row gap-2 pb-5">
       <input
         class="text-black text-center w-14 rounded-sm outline-none"
@@ -23,12 +26,11 @@
         Exit
       </button>
     </div>
-    <p v-if="currentTime !== 0">{{ currentTime }}s</p>
     <div
       class="w-[100%] grid grid-cols-[repeat(6,minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2"
     >
       <button
-        class="border p-2 w-10 h-10 rounded-md items-center"
+        class="border p-2 w-10 h-10 rounded-md items-center zoomOut hover:rotate"
         v-for="card in cards"
         :key="card.key"
         v-on:click="reveal(card.key)"
