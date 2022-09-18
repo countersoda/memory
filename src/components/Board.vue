@@ -40,7 +40,7 @@
       class="w-[100%] grid grid-cols-[repeat(4,minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2"
     >
       <button
-        class="border p-2 w-10 h-10 rounded-md items-center zoomOut hover:rotate"
+        class="border p-2 w-10 h-10 rounded-md items-center zoomOut"
         v-for="card in cards"
         :key="card.key"
         v-on:click="reveal(card.key)"
@@ -65,7 +65,7 @@
       />
       <p>You needed {{ currentTime }}s to find {{ amount }} Pairs</p>
       <button
-        class="mt-5 bg-white text-black w-[5rem] rounded-sm"
+        class="primary-btn mt-5 w-[5rem]"
         v-on:click="
           save({ user, amount, time: currentTime });
           reset();
@@ -73,10 +73,7 @@
       >
         Save
       </button>
-      <button
-        class="mt-5 bg-white text-black w-[5rem] rounded-sm"
-        v-on:click="reset()"
-      >
+      <button class="primary-btn mt-5 w-[5rem]" v-on:click="reset()">
         Cancel
       </button>
     </div>
@@ -91,7 +88,7 @@ import { ref } from "vue";
 
 const game = useGameStore();
 const board = useBoardStore();
-const { exit } = game;
+const { exit, save } = game;
 const { create, reset, reveal } = board;
 const {
   amount,

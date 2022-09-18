@@ -9,8 +9,18 @@
       Highscore
     </button>
   </div>
-  <div v-else-if="state == GameState.SCORE">
-    
+  <div
+    v-else-if="state == GameState.SCORE"
+    class="h-full flex flex-col items-center gap-2 justify-center pb-[10rem]"
+  >
+    <div
+      class="border p-2 rounded-md items-center"
+      v-for="score in highscore"
+      :key="score.key"
+    >
+      {{ score.user + " " + score.amount + " " + score.time + "s" }}
+    </div>
+    <button class="primary-btn" v-on:click="exit">Back</button>
   </div>
 </template>
 
