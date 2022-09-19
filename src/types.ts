@@ -7,6 +7,7 @@ export interface Score {
     user: string;
     time: string;
     amount: number;
+    attempts: number;
 }
 
 export enum GameState {

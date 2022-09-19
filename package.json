@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.185",
+    "@vueuse/core": "^9.2.0",
     "core-js": "^3.8.3",
     "lodash": "^4.17.21",
     "pinia": "^2.0.22",

@@ -8,6 +8,7 @@ export const useBoardStore = defineStore("board", {
   state: () => {
     return {
       amount: ref<number>(4),
+      attempts: ref<number>(0),
       cards: ref<Card[]>([]),
       revealedCards: ref<Card[]>([]),
       foundCards: ref<Card[]>([]),
@@ -36,6 +37,7 @@ export const useBoardStore = defineStore("board", {
     },
     reset() {
       this.startTime = 0;
+      this.attempts = 0;
       this.currentTime = "";
       this.cards = [];
       this.foundCards = []
@@ -60,6 +62,7 @@ export const useBoardStore = defineStore("board", {
           await sleep(500);
           this.revealedCards = [];
         }
+        this.attempts++;
       }
       if ((this.foundCards.length / 2) === this.amount) {
         clearInterval(this.timerId);

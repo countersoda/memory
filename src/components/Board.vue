@@ -40,7 +40,7 @@
       class="w-[100%] grid grid-cols-[repeat(4,minmax(0,2.5rem))] pt-10 place-items-center place-content-center gap-2"
     >
       <button
-        class="border p-2 w-10 h-10 rounded-md items-center zoomOut"
+        class="border p-2 w-10 h-10 rounded-md items-center zoomOut text-center"
         v-for="card in cards"
         :key="card.key"
         v-on:click="reveal(card.key)"
@@ -57,7 +57,9 @@
     v-else
     class="h-full flex flex-col items-center justify-center pb-[10rem]"
   >
-    <div class="border rounded-sm p-10 flex flex-col items-center slideInFromTop">
+    <div
+      class="border rounded-sm p-10 flex flex-col items-center slideInFromTop"
+    >
       <input
         v-model="user"
         class="text-black rounded-sm w-[10rem] mb-5 p-2"
@@ -67,13 +69,13 @@
       <button
         class="primary-btn mt-5 w-[5rem]"
         v-on:click="
-          save({ user, amount, time: currentTime });
+          save({ user, amount, time: currentTime, attempts });
           reset();
         "
       >
         Save
       </button>
-      <button class="primary-btn mt-5 w-[5rem]" v-on:click="reset()">
+      <button class="primary-btn mt-5 w-[5rem]" v-on:click="reset">
         Cancel
       </button>
     </div>
@@ -90,8 +92,15 @@ const game = useGameStore();
 const board = useBoardStore();
 const { exit, save } = game;
 const { create, reset, reveal } = board;
-const { amount, cards, revealedCards, foundCards, currentTime, finished } =
-  storeToRefs(board);
+const {
+  amount,
+  cards,
+  revealedCards,
+  foundCards,
+  currentTime,
+  finished,
+  attempts,
+} = storeToRefs(board);
 
 const user = ref("");
 </script>

@@ -23,12 +23,14 @@
             <tr>
               <th>Player</th>
               <th>Pairs</th>
+              <th>Attempts</th>
               <th>Time</th>
             </tr>
-            <tbody v-for="score in highscore">
+            <tbody v-for="score in highscore.sort(sortBy)">
               <tr>
                 <td>{{ score.user }}</td>
                 <td>{{ score.amount }}</td>
+                <td>{{ score.attempts }}</td>
                 <td>{{ score.time }}s</td>
               </tr>
             </tbody>
@@ -36,20 +38,41 @@
         </div>
       </div>
       <p v-else>No Highscore available!</p>
-      <button class="primary-btn" v-on:click="exit">Back</button>
+      <div class="flex flex-row gap-2">
+        <button class="primary-btn" v-on:click="exit">Back</button>
+        <button
+          v-if="highscore.length !== 0"
+          class="primary-btn"
+          v-on:click="clearHighscore"
+        >
+          Clear
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import Board from "@/components/Board.vue";
-import { GameState } from "@/types";
+import { ref } from "vue";
+import { GameState, Score } from "@/types";
 import { storeToRefs } from "pinia";
 import { useGameStore } from "@/state/game";
 
 const game = useGameStore();
-const { start, showHighscore, exit } = game;
+const { start, clearHighscore, showHighscore, exit } = game;
 const { state, highscore } = storeToRefs(game);
+const sortBy = (a: Score, b: Score) => {
+  if (a.amount > b.amount) {
+    return -1;
+  } else if (a.amount < b.amount) {
+    return 1;
+  } else {
+    return (
+      parseFloat(a.time.replace("s", "")) - parseFloat(b.time.replace("s", ""))
+    );
+  }
+};
 </script>
 
 <style>
@@ -69,12 +92,13 @@ body {
   color: whitesmoke;
 }
 
-html, body {
+html,
+body {
   background-color: #1a1a1a;
 }
 
 td,
 th {
-  @apply text-left px-2
+  @apply text-left px-2;
 }
 </style>
