@@ -5,8 +5,8 @@ export interface Card {
 
 export interface Score {
     user: string;
+    time: string;
     amount: number;
-    time: number;
 }
 
 export enum GameState {

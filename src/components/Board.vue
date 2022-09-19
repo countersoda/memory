@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="!finished"
-    class="h-full flex flex-col items-center justify-center pb-[10rem]"
+    class="flex flex-col items-center justify-center pb-[10rem]"
   >
-    <p class="zoomOut text-bold text-lg pb-10" v-if="currentTime !== 0">
+    <p class="slideInFromTop text-bold text-lg pb-10" v-if="currentTime !== ''">
       {{ currentTime }}s
     </p>
     <p class="text-bold text-lg pb-10" v-else>Start the game!</p>
@@ -57,7 +57,7 @@
     v-else
     class="h-full flex flex-col items-center justify-center pb-[10rem]"
   >
-    <div class="border rounded-sm p-10 flex flex-col items-center">
+    <div class="border rounded-sm p-10 flex flex-col items-center slideInFromTop">
       <input
         v-model="user"
         class="text-black rounded-sm w-[10rem] mb-5 p-2"
@@ -81,25 +81,17 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useGameStore } from "../state/game";
 import { useBoardStore } from "../state/board";
-import { ref } from "vue";
 
 const game = useGameStore();
 const board = useBoardStore();
 const { exit, save } = game;
 const { create, reset, reveal } = board;
-const {
-  amount,
-  cards,
-  revealedCards,
-  foundCards,
-  startTime,
-  currentTime,
-  timerId,
-  finished,
-} = storeToRefs(board);
+const { amount, cards, revealedCards, foundCards, currentTime, finished } =
+  storeToRefs(board);
 
 const user = ref("");
 </script>

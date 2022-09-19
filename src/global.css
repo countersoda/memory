@@ -1,21 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
+}
 
 .primary-btn {
-  @apply border p-2 rounded-md
+  @apply border p-2 rounded-md;
 }
 
 .rotate {
   animation: 1s ease-out 0s rotate;
+}
+
+.slideInFromTop {
+  animation: 1s ease-out 0s slideInFromTop;
 }
 
 .zoomOut {
@@ -34,5 +39,16 @@
   }
   100% {
     transform: scale(100%);
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    color: transparent;
+    transition: all ease 200ms;
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
