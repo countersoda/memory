@@ -30,7 +30,7 @@
         class="primary-btn"
         v-on:click="
           reset();
-          exit();
+          show(GameState.MENU);
         "
       >
         Exit
@@ -87,10 +87,11 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useGameStore } from "../state/game";
 import { useBoardStore } from "../state/board";
+import { GameState } from "@/types";
 
 const game = useGameStore();
 const board = useBoardStore();
-const { exit, save } = game;
+const { save, show } = game;
 const { create, reset, reveal } = board;
 const {
   amount,

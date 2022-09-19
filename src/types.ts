@@ -3,6 +3,10 @@ export interface Card {
     key: number;
 }
 
+export interface Setting {
+    visibilityDuration: number;
+}
+
 export interface Score {
     user: string;
     time: string;
@@ -13,5 +17,7 @@ export interface Score {
 export enum GameState {
     PLAY = "play",
     MENU = "menu",
-    SCORE = "highscore"
+    SCORE = "highscore",
+    SETTING = "setting"
 }
+

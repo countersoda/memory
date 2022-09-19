@@ -2,8 +2,9 @@
   <div class="flex flex-col items-center justify-center pb-[10rem]">
     <h1 class="text-bold text-3xl underline-offset-1 py-[5rem]">Memory</h1>
     <Board v-if="state === GameState.PLAY" />
-    <Menu v-if="state === GameState.MENU" />
-    <Highscore v-if="state === GameState.SCORE" />
+    <Menu v-else-if="state === GameState.MENU" />
+    <Highscore v-else-if="state === GameState.SCORE" />
+    <Settings v-else-if="state === GameState.SETTING" />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Highscore from "./components/Highscore.vue";
 import { GameState } from "@/types";
 import { storeToRefs } from "pinia";
 import { useGameStore } from "@/state/game";
+import Settings from "./components/Settings.vue";
 
 const game = useGameStore();
 const { state } = storeToRefs(game);

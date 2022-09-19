@@ -24,7 +24,9 @@
     </div>
     <p v-else>No Highscore available!</p>
     <div class="flex flex-row gap-2">
-      <button class="primary-btn" v-on:click="exit">Back</button>
+      <button class="primary-btn" v-on:click="show(GameState.MENU)">
+        Back
+      </button>
       <button
         v-if="highscore.length !== 0"
         class="primary-btn"
@@ -38,11 +40,11 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
-import { Score } from "@/types";
+import { GameState, Score } from "@/types";
 import { useGameStore } from "@/state/game";
 const game = useGameStore();
 
-const { clearHighscore, exit } = game;
+const { clearHighscore, show } = game;
 const { highscore } = storeToRefs(game);
 
 const sortBy = (a: Score, b: Score) => {

@@ -3,6 +3,8 @@ import { ref } from "vue";
 import { shuffle } from "lodash"
 import { Card } from "@/types";
 import { sleep } from "@/utils";
+import { useGameStore } from "@/state/game";
+
 
 export const useBoardStore = defineStore("board", {
   state: () => {
@@ -47,6 +49,7 @@ export const useBoardStore = defineStore("board", {
       this.finished = false;
     },
     async reveal(key: number) {
+      const { setting: { visibilityDuration } } = useGameStore();
       if (this.revealedCards.length === 2) return;
       for (const symbol of this.cards) {
         if (symbol.key === key && !this.revealedCards.includes(symbol)) {
@@ -59,7 +62,7 @@ export const useBoardStore = defineStore("board", {
           this.foundCards.push(...this.revealedCards);
           this.revealedCards = [];
         } else {
-          await sleep(350);
+          await sleep(visibilityDuration);
           this.revealedCards = [];
         }
         this.attempts++;
