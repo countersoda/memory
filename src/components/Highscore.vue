@@ -3,7 +3,7 @@
     class="h-full flex flex-col items-center gap-2 justify-center pb-[10rem]"
   >
     <div v-if="highscore.length !== 0">
-      <div class="border rounded-md px-5">
+      <div class="slideInFromTop border rounded-md px-5">
         <table>
           <tr>
             <th>Player</th>

@@ -59,7 +59,7 @@ export const useBoardStore = defineStore("board", {
           this.foundCards.push(...this.revealedCards);
           this.revealedCards = [];
         } else {
-          await sleep(500);
+          await sleep(350);
           this.revealedCards = [];
         }
         this.attempts++;

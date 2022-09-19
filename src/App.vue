@@ -11,9 +11,9 @@
 import Menu from "@/components/Menu.vue";
 import Board from "@/components/Board.vue";
 import Highscore from "./components/Highscore.vue";
+import { GameState } from "@/types";
 import { storeToRefs } from "pinia";
 import { useGameStore } from "@/state/game";
-import { GameState } from "@/types";
 
 const game = useGameStore();
 const { state } = storeToRefs(game);
