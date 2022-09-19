@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,11 +10,9 @@
     margin: 0;
   }
 }
-
 .primary-btn {
   @apply border p-2 rounded-md;
 }
-
 .slideInFromTop {
   animation: 500ms ease-out 0s slideInFromTop;
 }
