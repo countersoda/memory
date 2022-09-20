@@ -4,7 +4,7 @@
     <Board v-if="state === GameState.PLAY" />
     <Menu v-else-if="state === GameState.MENU" />
     <Highscore v-else-if="state === GameState.SCORE" />
-    <Settings v-else-if="state === GameState.SETTING" />
+    <Setting v-else-if="state === GameState.SETTING" />
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import Highscore from "./components/Highscore.vue";
 import { GameState } from "@/types";
 import { storeToRefs } from "pinia";
 import { useGameStore } from "@/state/game";
-import Settings from "./components/Settings.vue";
+import Setting from "./components/Setting.vue";
 
 const game = useGameStore();
 const { state } = storeToRefs(game);

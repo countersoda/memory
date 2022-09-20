@@ -7,7 +7,7 @@
       Highscore
     </button>
     <button class="primary-btn w-[10rem]" v-on:click="show(GameState.SETTING)">
-      Settings
+      Setting
     </button>
   </div>
 </template>
