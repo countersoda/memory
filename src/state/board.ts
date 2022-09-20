@@ -1,8 +1,8 @@
-import { defineStore } from "pinia";
 import { ref } from "vue";
-import { shuffle } from "lodash"
 import { Card } from "@/types";
 import { sleep } from "@/utils";
+import { shuffle } from "lodash"
+import { defineStore } from "pinia";
 import { useGameStore } from "@/state/game";
 
 

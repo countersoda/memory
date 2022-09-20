@@ -1,7 +1,7 @@
-import { useStorage } from '@vueuse/core'
-import { GameState, Score, Setting } from "@/types";
-import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useStorage } from '@vueuse/core'
+import { defineStore } from "pinia";
+import { GameState, Score, Setting } from "@/types";
 
 export const useGameStore = defineStore("game", {
     state: () => {

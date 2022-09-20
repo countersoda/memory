@@ -14,11 +14,15 @@
   @apply border p-2 rounded-md;
 }
 .slideInFromTop {
-  animation: 500ms ease-out 0s slideInFromTop;
+  animation: 1s ease-out 0s slideInFromTop;
 }
 
 .zoomOut {
   animation: 500ms ease-out 0s zoomOut;
+}
+
+.fadeIn {
+  animation: 2s ease-out 0s fadeIn;
 }
 
 @keyframes zoomOut {
@@ -27,6 +31,15 @@
   }
   100% {
     transform: scale(100%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

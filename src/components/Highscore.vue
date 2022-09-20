@@ -10,13 +10,15 @@
             <th>Pairs</th>
             <th>Attempts</th>
             <th>Time</th>
+            <th>Mode</th>
           </tr>
-          <tbody v-for="score in highscore.sort(sortBy)">
-            <tr>
+          <tbody>
+            <tr v-for="score in highscore.sort(sortBy)">
               <td>{{ score.user }}</td>
               <td>{{ score.amount }}</td>
               <td>{{ score.attempts }}</td>
               <td>{{ score.time }}s</td>
+              <td>{{ score.mode?.valueOf() }}</td>
             </tr>
           </tbody>
         </table>
@@ -27,24 +29,17 @@
       <button class="primary-btn" v-on:click="show(GameState.MENU)">
         Back
       </button>
-      <button
-        v-if="highscore.length !== 0"
-        class="primary-btn"
-        v-on:click="clearHighscore"
-      >
-        Clear
-      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
-import { GameState, Score } from "@/types";
 import { useGameStore } from "@/state/game";
-const game = useGameStore();
+import { GameState, Score } from "@/types";
 
-const { clearHighscore, show } = game;
+const game = useGameStore();
+const { show } = game;
 const { highscore } = storeToRefs(game);
 
 const sortBy = (a: Score, b: Score) => {

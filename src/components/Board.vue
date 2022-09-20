@@ -62,20 +62,29 @@
     >
       <input
         v-model="user"
-        class="text-black rounded-sm w-[10rem] mb-5 p-2"
+        class="fadeIn text-black rounded-sm w-[10rem] mb-5 p-2"
         placeholder="Enter name:"
       />
-      <p>You needed {{ currentTime }}s to find {{ amount }} Pairs</p>
+      <p class="fadeIn">
+        You needed {{ currentTime }}s to find {{ amount }} Pairs
+      </p>
       <button
-        class="primary-btn mt-5 w-[5rem]"
+        class="fadeIn primary-btn mt-5 w-[5rem]"
         v-on:click="
-          save({ user, amount, time: currentTime, attempts });
+          save({
+            user,
+            amount,
+            time: currentTime,
+            attempts,
+            mode: getMode(setting.visibilityDuration),
+          });
+          user = '';
           reset();
         "
       >
         Save
       </button>
-      <button class="primary-btn mt-5 w-[5rem]" v-on:click="reset">
+      <button class="fadeIn primary-btn mt-5 w-[5rem]" v-on:click="reset">
         Cancel
       </button>
     </div>
@@ -84,10 +93,11 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import { getMode } from "@/utils";
+import { GameState } from "@/types";
 import { storeToRefs } from "pinia";
 import { useGameStore } from "../state/game";
 import { useBoardStore } from "../state/board";
-import { GameState } from "@/types";
 
 const game = useGameStore();
 const board = useBoardStore();
@@ -102,6 +112,7 @@ const {
   finished,
   attempts,
 } = storeToRefs(board);
+const { setting } = storeToRefs(game);
 
 const user = ref("");
 </script>

@@ -12,6 +12,7 @@ export interface Score {
     time: string;
     amount: number;
     attempts: number;
+    mode: GameMode | undefined;
 }
 
 export enum GameState {
@@ -19,5 +20,12 @@ export enum GameState {
     MENU = "menu",
     SCORE = "highscore",
     SETTING = "setting"
+}
+
+export enum GameMode {
+    SLOW = "Slow",
+    EASY = "Easy",
+    FAST = "Fast",
+    HARD = "Hardcore"
 }
 
