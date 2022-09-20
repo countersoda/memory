@@ -4,6 +4,7 @@ import { sleep } from "@/utils";
 import { shuffle } from "lodash"
 import { defineStore } from "pinia";
 import { useGameStore } from "@/state/game";
+import { useToast } from "vue-toastification";
 
 
 export const useBoardStore = defineStore("board", {
@@ -50,6 +51,7 @@ export const useBoardStore = defineStore("board", {
     },
     async reveal(key: number) {
       const { setting: { visibilityDuration } } = useGameStore();
+      const toast = useToast();
       if (this.revealedCards.length === 2) return;
       for (const symbol of this.cards) {
         if (symbol.key === key && !this.revealedCards.includes(symbol)) {
@@ -69,6 +71,7 @@ export const useBoardStore = defineStore("board", {
       }
       if ((this.foundCards.length / 2) === this.amount) {
         clearInterval(this.timerId);
+        toast.success("You have found every pair!")
         await sleep(1000);
         this.finished = true;
       }

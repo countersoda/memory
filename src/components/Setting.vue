@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <button class="w-[10rem] primary-btn" v-on:click="clearHighscore">
+    <button class="w-[10rem] primary-btn" v-on:click="clearHighscore(); toast.info("Highscore deleted!")">
       Delete Highscore
     </button>
     <button class="w-[10rem] primary-btn" v-on:click="show(GameState.MENU)">
@@ -34,11 +34,13 @@
 </template>
 
 <script lang="ts" setup>
+import { getMode } from "@/utils";
+import { useToast } from "vue-toastification";
 import { GameState } from "@/types";
 import { useGameStore } from "@/state/game";
-import { getMode } from "@/utils";
 
 const game = useGameStore();
+const toast = useToast();
 const { clearHighscore, show } = game;
 const { setting } = game;
 const options = [700, 500, 350, 50];
