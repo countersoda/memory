@@ -24,7 +24,15 @@
         </div>
       </div>
     </div>
-    <button class="w-[10rem] primary-btn" v-on:click="clearHighscore(); toast.info("Highscore deleted!")">
+    <button
+      class="w-[10rem] primary-btn"
+      v-on:click="
+        clearHighscore();
+        toast.info('Highscore deleted!', {
+          hideProgressBar: true,
+        });
+      "
+    >
       Delete Highscore
     </button>
     <button class="w-[10rem] primary-btn" v-on:click="show(GameState.MENU)">
