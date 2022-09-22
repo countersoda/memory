@@ -22,7 +22,7 @@
       >
         Start
       </button>
-      <!-- <button class="primary-btn" @click="reset">Clear</button> -->
+      <button v-if="timerId !== undefined" class="primary-btn" @click="reset">Clear</button>
       <button
         v-if="timerId === undefined"
         class="primary-btn"
