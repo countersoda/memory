@@ -11,7 +11,7 @@
   }
 }
 .primary-btn {
-  @apply border p-2 rounded-md;
+  @apply border p-2 rounded-md hover:translate-y-[-3px];
 }
 .slideInFromTop {
   animation: 1s ease-out 0s slideInFromTop;

@@ -71,7 +71,7 @@ export const useBoardStore = defineStore("board", {
       }
       if ((this.foundCards.length / 2) === this.amount) {
         clearInterval(this.timerId);
-        toast.success("You have found every pair!", { hideProgressBar: true, position: POSITION.TOP_CENTER })
+        toast.success("You have found every pair!", { hideProgressBar: true, position: POSITION.TOP_CENTER, timeout: 2000 })
         await sleep(1000);
         this.finished = true;
       }

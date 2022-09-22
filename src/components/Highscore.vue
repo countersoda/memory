@@ -26,7 +26,7 @@
     </div>
     <p v-else>No Highscore available!</p>
     <div class="flex flex-row gap-2">
-      <button class="primary-btn" v-on:click="show(GameState.MENU)">
+      <button class="primary-btn" @click="show(GameState.MENU)">
         Back
       </button>
     </div>

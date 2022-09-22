@@ -15,7 +15,7 @@
             </button>
             <button
               v-else
-              v-on:click="setting.visibilityDuration = speed"
+              @click="setting.visibilityDuration = speed"
               class="speed"
             >
               {{ getMode(speed)?.valueOf() }}
@@ -26,7 +26,7 @@
     </div>
     <button
       class="w-[10rem] primary-btn"
-      v-on:click="
+      @click="
         clearHighscore();
         toast.info('Highscore deleted!', {
           hideProgressBar: true,
@@ -35,7 +35,7 @@
     >
       Delete Highscore
     </button>
-    <button class="w-[10rem] primary-btn" v-on:click="show(GameState.MENU)">
+    <button class="w-[10rem] primary-btn" @click="show(GameState.MENU)">
       Back
     </button>
   </div>
@@ -56,7 +56,7 @@ const options = [700, 500, 350, 50];
 
 <style>
 button.speed {
-  @apply w-[7rem] border p-2 rounded-md hover:translate-y-[-5px];
+  @apply w-[7rem] border p-2 rounded-md;
 }
 button.selected {
   @apply bg-white text-black;
